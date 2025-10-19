@@ -5,20 +5,19 @@ const select = document.getElementById("country");
 
 const apiId = "0b5ef3dc4b424b3cb6b0bb6dc52b73ea";
 
-// Lista de países opcional (para el <select>)
 const countries = [
-  "", "Afghanistan", "Argentina", "Australia", "Brazil", "Canada", "Chile",
-  "China", "Colombia", "Costa Rica", "Cuba", "Ecuador", "Egypt", "España",
-  "France", "Germany", "India", "Italy", "Japan", "Mexico", "Morocco",
-  "Netherlands", "Peru", "Philippines", "Portugal", "Russia", "South Africa",
-  "South Korea", "Spain", "Sweden", "Switzerland", "Thailand", "Turkey",
-  "Ukraine", "United Kingdom", "United States", "Uruguay", "Venezuela"
+  "", "Argentina", "Australia", "Brazil", "Canada", "Chile",
+  "China", "Colombia", "Costa Rica", "Ecuador", "Egypt",
+  "España", "France", "Germany", "India", "Italy", "Japan",
+  "Mexico", "Morocco", "Peru", "Philippines", "Portugal",
+  "Russia", "South Korea", "Spain", "Sweden", "Switzerland",
+  "Thailand", "Turkey", "United Kingdom", "United States", "Uruguay", "Venezuela"
 ];
 
-countries.forEach((allCountry) => {
+countries.forEach((country) => {
   const option = document.createElement("option");
-  option.value = allCountry;
-  option.textContent = allCountry;
+  option.value = country;
+  option.textContent = country;
   select.appendChild(option);
 });
 
@@ -27,20 +26,21 @@ form.addEventListener("submit", async (e) => {
 
   const city = nameCity.value.trim();
   const country = select.value.trim();
+  const cityImg = document.getElementById("cityImg");
+  cityImg.style.display = "none"; // Ocultar mientras carga
 
-  if (city === "" && country === "") {
-    return showError("Por favor, ingresa una ubicación o selecciona un país");
+  if (!city && !country) {
+    return showError("Por favor, ingresa una ciudad o selecciona un país");
   }
 
   try {
     await getCoordinates(city, country);
   } catch (error) {
-    showError("No se pudo obtener la información del clima");
+    showError("No se pudo obtener el clima");
     console.error(error);
   }
 });
 
-// 🔍 Obtener coordenadas (permite cualquier lugar del mundo)
 async function getCoordinates(city, country) {
   const query = [city, country].filter(Boolean).join(",");
   const geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=1&appid=${apiId}`;
@@ -56,7 +56,6 @@ async function getCoordinates(city, country) {
   callAPI(lat, lon, name, state, countryCode);
 }
 
-// 🌤 Obtener clima actual con coordenadas
 async function callAPI(lat, lon, name, state, countryCode) {
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiId}&units=metric&lang=es`;
 
@@ -70,7 +69,6 @@ async function callAPI(lat, lon, name, state, countryCode) {
   showWeather(data, name, state, countryCode);
 }
 
-// 🌈 Mostrar datos del clima
 function showWeather(data, name, state, countryCode) {
   const {
     main: { temp, temp_max, temp_min },
@@ -83,37 +81,21 @@ function showWeather(data, name, state, countryCode) {
   const cityMaxTemp = document.getElementById("cityMaxTemp");
   const cityMinTemp = document.getElementById("cityMinTemp");
 
-  // Mostrar nombre del lugar
   cityName.textContent = `Clima de ${name}${state ? ", " + state : ""} (${countryCode})`;
 
-  // ✅ Mostrar ícono del clima (ya no oculto)
-  cityImg.style.display = "block";
+  // ✅ Muestra solo cuando tenga icono
   cityImg.src = `https://openweathermap.org/img/wn/${arr.icon}@2x.png`;
   cityImg.alt = arr.description;
+  cityImg.style.display = "block";
 
-  // Temperaturas
   cityTemp.textContent = `${Math.round(temp)}°C`;
   cityMaxTemp.textContent = `Max: ${Math.round(temp_max)}°C`;
   cityMinTemp.textContent = `Min: ${Math.round(temp_min)}°C`;
-
-  // Colores dinámicos
-  [cityTemp, cityMaxTemp, cityMinTemp].forEach(el => {
-    el.classList.remove("color-blue", "color-warm", "color-yellow");
-  });
-
-  if (temp <= 15) {
-    [cityTemp, cityMaxTemp, cityMinTemp].forEach(el => el.classList.add("color-blue"));
-  } else if (temp >= 30) {
-    [cityTemp, cityMaxTemp, cityMinTemp].forEach(el => el.classList.add("color-warm"));
-  } else {
-    [cityTemp, cityMaxTemp, cityMinTemp].forEach(el => el.classList.add("color-yellow"));
-  }
 }
 
-// ⚠ Mostrar errores
 function showError(message) {
   const alert = document.createElement("p");
-  alert.classList.add("alert-message");
+  alert.classList.add("alert-message", "text-red-400", "mt-2");
   alert.innerText = message;
   form.appendChild(alert);
 
