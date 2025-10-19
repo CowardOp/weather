@@ -27,7 +27,10 @@ form.addEventListener("submit", async (e) => {
   const city = nameCity.value.trim();
   const country = select.value.trim();
   const cityImg = document.getElementById("cityImg");
-  cityImg.style.display = "none"; // Ocultar mientras carga
+
+  // 👇 Mostrar una imagen de carga mientras trae los datos
+  cityImg.src = "https://www.gstatic.com/weather/conditions/v1/svg/drizzle_light.svg";
+  cityImg.style.display = "block";
 
   if (!city && !country) {
     return showError("Por favor, ingresa una ciudad o selecciona un país");
@@ -40,6 +43,7 @@ form.addEventListener("submit", async (e) => {
     console.error(error);
   }
 });
+
 
 async function getCoordinates(city, country) {
   const query = [city, country].filter(Boolean).join(",");
