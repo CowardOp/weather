@@ -163,66 +163,74 @@ body img {
   color: var(--color-calido);
 }
 
-/* ======= Responsividad ======= */
+/* =========================
+   AJUSTES RESPONSIVOS COMPLETOS
+   ========================= */
+
+/* ---- TABLET ---- */
 @media (max-width: 768px) {
   .container {
-    padding: 1.5rem 2rem;
-    max-width: 90%;
+    width: 90%;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border-radius: 16px;
   }
 
   .title {
     font-size: 1.8rem;
   }
 
-  .number {
-    font-size: 3.5rem;
+  .city-img {
+    width: 130px;
+    height: 130px;
   }
 
-  .city-img {
-    width: 100px;
-    height: 100px;
+  .input-text {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    font-size: 1.1rem;
   }
 }
 
-/* =========================
-   AJUSTES ESPECÍFICOS MÓVIL
-   (Pegar al final del CSS)
-   ========================= */
-
-/* Base para móviles: zone responsive y scroll si el contenido es alto */
+/* ---- MÓVILES ---- */
 @media (max-width: 480px) {
   body {
+    display: flex;
+    justify-content: center;
     align-items: flex-start;
-    padding-top: 1.5rem;
-    padding-bottom: 2rem;
+    min-height: 100vh;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow-x: hidden;
   }
 
-  /* Hace que el fondo no interfiera y reduzca blur para rendimiento */
   body img {
-    filter: brightness(0.55) blur(3px);
+    filter: brightness(0.6) blur(3px);
   }
 
-  /* Contenedor: centrado, tamaño reducido y scroll interno */
   .container {
-    width: calc(100% - 24px);
-    max-width: 420px;
+    width: 100%;
+    max-width: 380px;
     margin: 0 auto;
     padding: 1rem;
-    border-radius: 14px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+    background: rgba(180, 214, 205, 0.45);
     backdrop-filter: blur(0.6rem);
     -webkit-backdrop-filter: blur(0.6rem);
-    transition: transform 0.35s cubic-bezier(.2,.8,.2,1), opacity 0.3s ease;
-    /* si el contenido es alto, permitir scroll dentro del panel */
-    max-height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     overflow-y: auto;
-    overscroll-behavior: contain;
+    max-height: calc(100vh - 80px);
+    animation: slideUpFade 0.4s ease;
   }
 
-  /* Top header / title más compacto */
   .title {
-    font-size: 1.4rem;
-    margin-bottom: 0.6rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
   }
 
   .weather-city {
@@ -230,115 +238,103 @@ body img {
     margin-bottom: 0.5rem;
   }
 
-  /* Imagen más pequeña y con margen reducido */
+  /* ✅ Imagen centrada y adaptable */
   .city-img {
-    width: 82px;
-    height: 82px;
-    margin: 0.4rem auto;
+    width: 70%;
+    max-width: 180px;
+    height: auto;
+    object-fit: contain;
+    margin: 0.8rem auto;
+    display: block;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
   }
 
-  /* Número más pequeño y más compacto */
+  .city-img:hover {
+    transform: scale(1.05);
+  }
+
+  /* ✅ Input ajustado */
+  .input-text {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    outline: none;
+    text-align: center;
+  }
+
+  .input-text::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
   .number {
-    font-size: 2.6rem;
-    line-height: 1;
-    margin: 0.35rem 0;
+    font-size: 2.4rem;
+    line-height: 1.1;
+    margin: 0.3rem 0;
   }
 
-  /* Mensajes y alertas */
   .alert-message {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     margin-top: 0.4rem;
   }
 
-  /* Inputs y botones ocupando todo el ancho */
-  .input-text {
-    width: 100%;
-    font-size: 0.95rem;
-    padding: 0.75rem 0.9rem;
-    border-radius: 10px;
-  }
   .submit {
     width: 100%;
-    padding: 0.85rem 1rem;
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
     border-radius: 10px;
-    font-size: 0.95rem;
-    margin-top: 0.8rem;
+    background-color: #b4d6cd;
+    border: none;
+    transition: all 0.3s ease;
   }
 
-  /* Menos animación pesada en hover (no relevante en touch) */
-  .city-img:hover,
   .submit:hover {
-    transform: none;
-    box-shadow: none;
+    transform: scale(1.05);
+    background-color: #ffda76;
   }
 
-  /* Para evitar que la tecla virtual tape el contenido en algunos móviles */
-  .container:focus-within {
-    transform: translateY(-6px);
-  }
-
-  /* Ajuste extra para textos largos: abreviación y wrap */
-  .weather-city,
-  .title {
-    word-break: break-word;
-    hyphens: auto;
+  @keyframes slideUpFade {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 }
 
-/* Ajustes aún más compactos para pantallas muy pequeñas (<=360px) */
+/* ---- PANTALLAS MUY PEQUEÑAS ---- */
 @media (max-width: 360px) {
-  .container {
-    padding: 0.8rem;
-    border-radius: 12px;
-    max-height: calc(100vh - 80px);
-  }
-
   .title {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   .number {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .city-img {
-    width: 68px;
-    height: 68px;
+    width: 60%;
+    max-width: 150px;
   }
 
   .input-text {
     font-size: 0.9rem;
-    padding: 0.6rem 0.7rem;
+    padding: 0.7rem 0.9rem;
   }
 
   .submit {
-    padding: 0.7rem 0.8rem;
     font-size: 0.9rem;
+    padding: 0.8rem;
   }
 }
-
-/* Microanimación de reacomodo: se activa al entrar en móvil */
-@media (max-width: 480px) {
-  @keyframes slideUpFade {
-    from { transform: translateY(18px); opacity: 0; }
-    to   { transform: translateY(0); opacity: 1; }
-  }
-  .container {
-    animation: slideUpFade 0.45s cubic-bezier(.2,.85,.25,1);
-  }
-}
-
-/* ---------- Opcional: botón "compact view" para dispositivos muy estrechos ----------
-   Si quieres permitir al usuario colapsar parte del contenido (más compacto),
-   puedes añadir una clase .compact al body con este CSS y activar con JS.
-*/
-body.compact .container {
-  padding: 0.6rem;
-  border-radius: 10px;
-}
-body.compact .title { display: none; }    /* oculta el título para ahorrar espacio */
-body.compact .city-img { width: 56px; height: 56px; }
-body.compact .number { font-size: 1.9rem; }
 
 /* ======= Animaciones ======= */
 @keyframes parpadeo {
