@@ -77,32 +77,30 @@ function showWeather(data, name, state, countryCode) {
     weather: [arr],
   } = data;
 
-  // Referencias a los elementos
   const cityName = document.getElementById("cityName");
   const cityImg = document.getElementById("cityImg");
   const cityTemp = document.getElementById("cityTemp");
   const cityMaxTemp = document.getElementById("cityMaxTemp");
   const cityMinTemp = document.getElementById("cityMinTemp");
 
-  // Mostrar ubicación
+  // Mostrar nombre del lugar
   cityName.textContent = `Clima de ${name}${state ? ", " + state : ""} (${countryCode})`;
 
-  // Mostrar ícono del clima ☀️⛅🌧️
+  // ✅ Mostrar ícono del clima (ya no oculto)
+  cityImg.style.display = "block";
   cityImg.src = `https://openweathermap.org/img/wn/${arr.icon}@2x.png`;
   cityImg.alt = arr.description;
-  cityImg.classList.add("city-img"); // asegúrate que tu CSS tenga esta clase
 
-  // Mostrar temperaturas
+  // Temperaturas
   cityTemp.textContent = `${Math.round(temp)}°C`;
   cityMaxTemp.textContent = `Max: ${Math.round(temp_max)}°C`;
   cityMinTemp.textContent = `Min: ${Math.round(temp_min)}°C`;
 
-  // Limpiar clases previas
+  // Colores dinámicos
   [cityTemp, cityMaxTemp, cityMinTemp].forEach(el => {
     el.classList.remove("color-blue", "color-warm", "color-yellow");
   });
 
-  // Aplicar color dinámico
   if (temp <= 15) {
     [cityTemp, cityMaxTemp, cityMinTemp].forEach(el => el.classList.add("color-blue"));
   } else if (temp >= 30) {
