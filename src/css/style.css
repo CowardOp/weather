@@ -184,31 +184,161 @@ body img {
   }
 }
 
+/* =========================
+   AJUSTES ESPECÍFICOS MÓVIL
+   (Pegar al final del CSS)
+   ========================= */
+
+/* Base para móviles: zone responsive y scroll si el contenido es alto */
 @media (max-width: 480px) {
   body {
     align-items: flex-start;
-    padding-top: 3rem;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
   }
 
+  /* Hace que el fondo no interfiera y reduzca blur para rendimiento */
+  body img {
+    filter: brightness(0.55) blur(3px);
+  }
+
+  /* Contenedor: centrado, tamaño reducido y scroll interno */
   .container {
+    width: calc(100% - 24px);
+    max-width: 420px;
+    margin: 0 auto;
     padding: 1rem;
-    width: 95%;
-    border-radius: 15px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(0.6rem);
+    -webkit-backdrop-filter: blur(0.6rem);
+    transition: transform 0.35s cubic-bezier(.2,.8,.2,1), opacity 0.3s ease;
+    /* si el contenido es alto, permitir scroll dentro del panel */
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  /* Top header / title más compacto */
+  .title {
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .weather-city {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Imagen más pequeña y con margen reducido */
+  .city-img {
+    width: 82px;
+    height: 82px;
+    margin: 0.4rem auto;
+  }
+
+  /* Número más pequeño y más compacto */
+  .number {
+    font-size: 2.6rem;
+    line-height: 1;
+    margin: 0.35rem 0;
+  }
+
+  /* Mensajes y alertas */
+  .alert-message {
+    font-size: 0.95rem;
+    margin-top: 0.4rem;
+  }
+
+  /* Inputs y botones ocupando todo el ancho */
+  .input-text {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 0.75rem 0.9rem;
+    border-radius: 10px;
+  }
+  .submit {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    margin-top: 0.8rem;
+  }
+
+  /* Menos animación pesada en hover (no relevante en touch) */
+  .city-img:hover,
+  .submit:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Para evitar que la tecla virtual tape el contenido en algunos móviles */
+  .container:focus-within {
+    transform: translateY(-6px);
+  }
+
+  /* Ajuste extra para textos largos: abreviación y wrap */
+  .weather-city,
+  .title {
+    word-break: break-word;
+    hyphens: auto;
+  }
+}
+
+/* Ajustes aún más compactos para pantallas muy pequeñas (<=360px) */
+@media (max-width: 360px) {
+  .container {
+    padding: 0.8rem;
+    border-radius: 12px;
+    max-height: calc(100vh - 80px);
   }
 
   .title {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
   }
 
   .number {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
   }
 
-  .input-text,
+  .city-img {
+    width: 68px;
+    height: 68px;
+  }
+
+  .input-text {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.7rem;
+  }
+
   .submit {
-    font-size: 0.95rem;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.9rem;
   }
 }
+
+/* Microanimación de reacomodo: se activa al entrar en móvil */
+@media (max-width: 480px) {
+  @keyframes slideUpFade {
+    from { transform: translateY(18px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+  .container {
+    animation: slideUpFade 0.45s cubic-bezier(.2,.85,.25,1);
+  }
+}
+
+/* ---------- Opcional: botón "compact view" para dispositivos muy estrechos ----------
+   Si quieres permitir al usuario colapsar parte del contenido (más compacto),
+   puedes añadir una clase .compact al body con este CSS y activar con JS.
+*/
+body.compact .container {
+  padding: 0.6rem;
+  border-radius: 10px;
+}
+body.compact .title { display: none; }    /* oculta el título para ahorrar espacio */
+body.compact .city-img { width: 56px; height: 56px; }
+body.compact .number { font-size: 1.9rem; }
 
 /* ======= Animaciones ======= */
 @keyframes parpadeo {
