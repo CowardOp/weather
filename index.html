@@ -10,61 +10,78 @@
     <link rel="stylesheet" href="../src/css/style.css" />
    
   </head>
-  <body>
-    <img src="../src/assets/weather.jpg" alt="icon" />
-    <main class="w-full flex h-screen justify-center items-center">
+   <body class="flex items-center justify-center h-screen">
+    <main class="w-full flex justify-center items-center px-4">
       <section
-        class="container flex flex-col md:flex-row gap-5 w-1/4 h-3/4 md:w-3/4 pt -4 ps-3 rounded-xl shadow-xl"
+        class="container flex flex-col md:flex-row gap-6 bg-white/10 p-6 md:p-10 rounded-2xl shadow-2xl backdrop-blur-lg"
       >
-        <div class="w-full h-full md:w-2/4 flex flex-col justify-center gap-2">
-          <h1 class="title text-center text-4xl">Buscador del Clima</h1>
-          <div
-            class="contain h-3/4 flex flex-col items-center justify-center gap-3"
-            id="result"
-          >
-            <p class="font-light text-sm">Agregue ciudad y pais</p>
-            <h5 id="cityName" class="weather-city font-bold text-2xl">
+        <!-- Panel izquierdo -->
+        <div
+          class="w-full md:w-2/4 flex flex-col justify-center items-center text-center gap-3"
+        >
+          <h1 class="title text-4xl font-bold text-blue-200">
+            Buscador del Clima
+          </h1>
+
+          <div id="result" class="flex flex-col items-center gap-3">
+            <p class="text-sm text-blue-100">Agregue ciudad y país</p>
+
+            <h5 id="cityName" class="font-semibold text-2xl">
               Clima de -------
             </h5>
-            <div class="flex justify-center items-center w-full h-12">
+
+            <div
+              class="flex justify-center items-center w-full h-[120px] mt-2 mb-2"
+            >
               <img
                 id="cityImg"
-                src=""
-                alt=""
-                class="city-img w-[100px] h-[100px]"
+                alt="icono del clima"
+                class="city-img transition-all duration-300"
               />
             </div>
-            <h2 id="cityTemp" class="number anim text-8xl font-bold">--°C</h2>
-            <p id="cityMaxTemp" class="number anim text-4xl font-medium">
+
+            <h2
+              id="cityTemp"
+              class="text-6xl md:text-8xl font-bold drop-shadow-lg"
+            >
+              --°C
+            </h2>
+            <p id="cityMaxTemp" class="text-2xl md:text-4xl font-medium">
               Max: --°C
             </p>
-            <p id="cityMinTemp" class="number anim text-4xl font-medium">
+            <p id="cityMinTemp" class="text-2xl md:text-4xl font-medium">
               Min: --°C
             </p>
           </div>
         </div>
+
+        <!-- Formulario derecho -->
         <form
-          action=""
-          method="POST"
           id="getWeather"
-          class="block flex flex-col w-2/4 h-full gap-5 items-center justify-center"
+          class="w-full md:w-2/4 flex flex-col gap-5 items-center justify-center"
         >
           <input
-            class="input-text w-[90%] outline-none text-black text-2xl rounded-xl ps-3 py-1"
+            class="input-text w-full outline-none text-black text-2xl rounded-xl px-4 py-2 shadow-md"
             type="text"
             name="city"
             id="city"
             placeholder="Indique la ciudad"
           />
+
           <select
-            class="text-black text-xl w-9/12 rounded"
-            name=""
+            class="text-black text-xl w-full rounded-xl px-3 py-2 shadow-md"
             id="country"
           ></select>
-          <input type="submit" value="Get Weather" class="submit" />
+
+          <input
+            type="submit"
+            value="Obtener Clima"
+            class="submit bg-blue-600 hover:bg-blue-700 text-white text-xl font-semibold rounded-xl px-6 py-2 transition-all cursor-pointer shadow-md"
+          />
         </form>
       </section>
     </main>
+
     <script src="../src/js/main.js"></script>
   </body>
 </html>
