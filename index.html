@@ -1,70 +1,13 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/icon" href="./src/img/icono api.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather API</title>
-    <link rel="icon" href="../src/assets/icono api.png" type="image/x-icon" />
-    <!-- <script src="https://cdn.tailwindcss.com"></script>npx tailwindcss init -->
-    <link rel="stylesheet" href="../src/css/main.css" />
-    <link rel="stylesheet" href="../src/css/style.css" />
+    <title>weather_api</title>
   </head>
   <body>
-    <img src="../src/assets/weather.jpg" alt="icon" />
-    <main class="w-full flex h-screen justify-center items-center">
-      <section
-        class="container flex flex-col md:flex-row gap-5 w-1/4 h-3/4 md:w-3/4 pt -4 ps-3 rounded-xl shadow-xl"
-      >
-        <div class="w-full h-full md:w-2/4 flex flex-col justify-center gap-2">
-          <h1 class="title text-center text-4xl">Buscador del Clima</h1>
-          <div
-            class="contain h-3/4 flex flex-col items-center justify-center gap-3"
-            id="result"
-          >
-            <p class="font-light text-sm">Agregue ciudad y pais</p>
-            <h5 id="cityName" class="weather-city font-bold text-2xl">
-              Clima de -------
-            </h5>
-            <div class="flex justify-center items-center w-full h-12">
-              <img
-                id="cityImg"
-                src="https://www.gstatic.com/weather/conditions/v1/svg/drizzle_light.svg"
-                alt="icono por defecto"
-                class="city-img transition-all duration-300"
-              />
-
-            </div>
-            <h2 id="cityTemp" class="number anim text-8xl font-bold">--°C</h2>
-            <p id="cityMaxTemp" class="number anim text-4xl font-medium">
-              Max: --°C
-            </p>
-            <p id="cityMinTemp" class="number anim text-4xl font-medium">
-              Min: --°C
-            </p>
-          </div>
-        </div>
-        <form
-          action=""
-          method="POST"
-          id="getWeather"
-          class="block flex flex-col w-2/4 h-full gap-5 items-center justify-center"
-        >
-          <input
-            class="input-text w-[90%] outline-none text-black text-2xl rounded-xl ps-3 py-1"
-            type="text"
-            name="city"
-            id="city"
-            placeholder="Indique la ciudad"
-          />
-          <select
-            class="text-black text-xl w-9/12 rounded"
-            name=""
-            id="country"
-          ></select>
-          <input type="submit" value="Get Weather" class="submit" />
-        </form>
-      </section>
-    </main>
-    <script src="../src/js/main.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
