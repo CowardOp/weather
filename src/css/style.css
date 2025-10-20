@@ -240,16 +240,13 @@ body img {
 
   /* ✅ Imagen centrada y adaptable */
   .city-img {
-    width: 70%;
-    max-width: 180px;
+    width: 50%;       /* más pequeña */
+    max-width: 120px; /* tamaño máximo real en móviles */
     height: auto;
     object-fit: contain;
-    margin: 0.8rem auto;
+    margin: 1rem auto;
     display: block;
-    border-radius: 12px;
-    transition: transform 0.3s ease;
   }
-
   .city-img:hover {
     transform: scale(1.05);
   }
@@ -321,10 +318,10 @@ body img {
   }
 
   .city-img {
-    width: 60%;
-    max-width: 150px;
+    width: 45%;
+    max-width: 100px;
   }
-
+  
   .input-text {
     font-size: 0.9rem;
     padding: 0.7rem 0.9rem;
